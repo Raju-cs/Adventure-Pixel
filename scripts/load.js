@@ -67,6 +67,15 @@ export default class Loader extends Phaser.Scene{
 
     preload(){
        this.load.image("Bg_brown","assets/Background/Brown.png");
+       this.load.image("Platforms","assets/Background/Grey On (32x8).png");
+       this.load.spritesheet('Idle', 'assets/Background/Idle (32x32).png', { frameWidth: 32, frameHeight: 32 });
+       this.load.spritesheet('run', 'assets/Background/Run (32x32).png', { frameWidth: 32, frameHeight: 32 });
+       this.load.spritesheet('jump', 'assets/Background/Jump (32x32).png', { frameWidth: 32, frameHeight: 32 });
+       
+
+       // load map
+       this.load.tilemapTiledJSON("map1", "assets/Tilemap/one.json");
+       this.load.image("map-tiles", "assets/Tilemap/Terrain.png");
     }
 
 } 

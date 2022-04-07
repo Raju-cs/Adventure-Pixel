@@ -1,8 +1,8 @@
 import Loader from "./load.js";
 import Level_1 from "./Level1.js";
 const config = {
-    width: 995,
-    height: 500,
+    width: 987,
+    height: 476,
     type: Phaser.AUTO,
     pixelArt: true,
     roundPixels: true,
@@ -13,7 +13,7 @@ const config = {
       arcade: {
         fps: 60,
         gravity: { y: 0 },
-        debug: false
+        debug: true
       },
     },
     scale: {
