@@ -26,14 +26,12 @@ export default class Map {
      
   
       // create layer...
-      // this.groundLayer = this.map
-      //   .createLayer("ground", [groundTiles], 0, -0.2) //
-      //   .setDepth(0.5);
+     
       this.ground = this.map.createLayer("ground", [groundTiles], 0, -0.2).setDepth(2);
     
   
       // enable collision on tilemap layer
-      // this.groundLayer.setCollisionByProperty({ collide:true });
+     
       this.ground.setCollisionByProperty({collide: true});
     
   

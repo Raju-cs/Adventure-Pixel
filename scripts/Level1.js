@@ -75,6 +75,12 @@ export default class Level_1 extends Phaser.Scene{
       if (this.cursors.up.isDown && this.player.body.blocked.down ) {
         this.player.anims.play("jump", true);
         this.player.setVelocityY(-250); // set player jump
+      }else if( this.cursors.up.isDown  && this.cursors.left.isDown){
+        this.player.anims.play("jump", true);
+      
+      }else if(this.cursors.up.isDown  && this.cursors.right.isDown){
+        this.player.anims.play("jump", true);
+        
       }
     }
   
