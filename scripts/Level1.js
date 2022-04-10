@@ -43,14 +43,17 @@ export default class Level_1 extends Phaser.Scene{
     });
    
     this.player = new Player(this, 80, 250, "run"); //add player in game world
-    this.physics.add.collider(this.player, this.map.getGroundLayer());
-    // this.physics.add.collider(this.player, this.map.getGroundLayer());
+  
+    
     
     this.isGameStart = true;
+    this.hadleCollision();
    
   }
 
-
+  hadleCollision(){
+    this.physics.add.collider(this.player, this.map.getGroundLayer());
+  }
 
   update(){
     if(this.isGameStart){

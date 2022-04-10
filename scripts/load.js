@@ -74,7 +74,7 @@ export default class Loader extends Phaser.Scene{
        
 
        // load map
-       this.load.tilemapTiledJSON("map1", "assets/Tilemap/one.json");
+       this.load.tilemapTiledJSON("map1", "assets/Tilemap/map1.json");
        this.load.image("map-tiles", "assets/Tilemap/Terrain.png");
     }
 
