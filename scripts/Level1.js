@@ -12,6 +12,7 @@ export default class Level_1 extends Phaser.Scene{
     apple_4;
     apple_5;
     score = 0;
+    scoreText;
     
      constructor(){
          super("level1");
@@ -49,6 +50,11 @@ export default class Level_1 extends Phaser.Scene{
     this.player = new Player(this, 80, 250, "run"); //add player in game world
     this.hadleCollision();
     this.fruitItem();
+    this.scoreText = this.add.text(730, 20, "score: 0", {
+    
+      fontSize: "22px",
+      fill: "#000",
+    });
      
  
   }
@@ -112,9 +118,7 @@ export default class Level_1 extends Phaser.Scene{
       
       //  And disable the body
       fruit_apple.body.enable = false;
-      this.score += 10;
-           console.log("overlap");
-           console.log("score=>",this.score);
+      this.updateScore(10);
        }
        collect_two(player,fruit_apple){
            //  Hide the sprite
@@ -122,9 +126,7 @@ export default class Level_1 extends Phaser.Scene{
       
       //  And disable the body
       fruit_apple.body.enable = false;
-      this.score += 10;
-           console.log("overlap");
-           console.log("score=>",this.score);
+      this.updateScore(10);
        }
        collect_three(player,fruit_apple){
         //  Hide the sprite
@@ -132,9 +134,7 @@ export default class Level_1 extends Phaser.Scene{
    
    //  And disable the body
    fruit_apple.body.enable = false;
-   this.score += 10;
-        console.log("overlap");
-        console.log("score=>",this.score);
+   this.updateScore(10);
     }
     collect_four(player,fruit_apple){
       //  Hide the sprite
@@ -142,9 +142,7 @@ export default class Level_1 extends Phaser.Scene{
  
  //  And disable the body
  fruit_apple.body.enable = false;
- this.score += 10;
-      console.log("overlap");
-      console.log("score=>",this.score);
+ this.updateScore(10);
   }
   update(){
     if(this.isGameStart){
@@ -177,6 +175,10 @@ export default class Level_1 extends Phaser.Scene{
   
     this.backGround.tilePositionX -= 0.5;
     
+  }
+  updateScore(_value) {
+    this.score += _value; // increase game score set value _value =10
+    this.scoreText.setText("Score: " + this.score); // set the text for score show
   }
 
 }
