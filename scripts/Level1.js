@@ -11,7 +11,7 @@ export default class Level_1 extends Phaser.Scene{
     apple_3;
     apple_4;
     apple_5;
-     score = 10;
+    score = 0;
     
      constructor(){
          super("level1");
