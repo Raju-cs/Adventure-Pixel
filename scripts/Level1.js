@@ -13,6 +13,7 @@ export default class Level_1 extends Phaser.Scene{
     apple_5;
     score = 0;
     scoreText;
+    coin;
     
      constructor(){
          super("level1");
@@ -104,12 +105,18 @@ export default class Level_1 extends Phaser.Scene{
      this.physics.world.enable(this.apple_4);
     this.isGameStart = true;
   
-  
+    this.coin = this.add.image(860,400,'coin').setScale(1.8);
+    this.coin.visible = false;
     
     this.physics.add.overlap(this.player,   this.apple , this.collect,null,this);
     this.physics.add.overlap(this.player,   this.apple_2 , this.collect_two,null,this);
     this.physics.add.overlap(this.player,   this.apple_3 , this.collect_three,null,this);
     this.physics.add.overlap(this.player,   this.apple_4 , this.collect_four,null,this);
+    
+    // handle coin collection
+       
+       this.physics.world.enable(this.coin);
+       this.physics.add.overlap(this.player,   this.coin , this.levelComplete,null,this);
     
     }
     collect(player,fruit_apple){
@@ -143,6 +150,14 @@ export default class Level_1 extends Phaser.Scene{
  //  And disable the body
  fruit_apple.body.enable = false;
  this.updateScore(10);
+  }
+
+  levelComplete() {
+    console.log(this.score);
+    
+
+    
+   
   }
   update(){
     if(this.isGameStart){
@@ -179,6 +194,26 @@ export default class Level_1 extends Phaser.Scene{
   updateScore(_value) {
     this.score += _value; // increase game score set value _value =10
     this.scoreText.setText("Score: " + this.score); // set the text for score show
+    if(this.score ==60 ){
+      this.tweens.add({
+        // add tween Text.
+        targets: this.add
+          .text(500,200,'get the coin Unlock next level', {
+            fontSize: "33px",
+            color: "#ff6700",
+            stroke: "#effa52",
+            strokeThickness: 5,
+          })
+          .setOrigin(0.5),
+        props: {
+          scale: 1.2,
+          alpha: 0,
+        },
+        duration: 1000,
+      });
+      this.coin.visible = true;
+     
+    }
   }
 
 }
