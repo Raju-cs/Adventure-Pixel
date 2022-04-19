@@ -72,6 +72,7 @@ export default class Loader extends Phaser.Scene{
        this.load.spritesheet('run', 'assets/Background/Run (32x32).png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('jump', 'assets/Background/Jump (32x32).png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('fruit_apple', 'assets/fruit/Apple.png', { frameWidth: 32, frameHeight: 32 });
+       this.load.spritesheet('checkpoint', 'assets/Checkpoint (Flag Idle)(64x64).png', { frameWidth: 64, frameHeight: 64 });
        this.load.image("coin","assets/coin.png");
     
        // load map

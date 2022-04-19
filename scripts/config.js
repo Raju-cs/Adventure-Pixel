@@ -13,13 +13,13 @@ const config = {
       arcade: {
         fps: 60,
         gravity: { y: 0 },
-        debug: true
+        debug: false
       },
     },
     scale: {
       autoCenter: Phaser.Scale.CENTER_BOTH,
       // mode: Phaser.Scale.FIT,
-      parent: "root",
+      parent: "root", 
     },
     scene: [Loader,Level_1],
   };

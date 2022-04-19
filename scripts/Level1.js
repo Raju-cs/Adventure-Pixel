@@ -14,6 +14,9 @@ export default class Level_1 extends Phaser.Scene{
     score = 0;
     scoreText;
     coin;
+    checkpoint;
+    coin_pick;
+    
     
      constructor(){
          super("level1");
@@ -47,6 +50,13 @@ export default class Level_1 extends Phaser.Scene{
       frameRate: 8,
       repeat: -1,
     });
+    this.anims.create({
+      key: "checkpoint",
+      frames: this.anims.generateFrameNumbers('checkpoint', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }),
+      frameRate: 8,
+      repeat: -1,
+    });
+
       
     this.player = new Player(this, 80, 250, "run"); //add player in game world
     this.hadleCollision();
@@ -60,10 +70,6 @@ export default class Level_1 extends Phaser.Scene{
  
   }
 
-   
-  
-
-
   hadleCollision(){
     this.physics.add.collider(this.player,  this.map.getGroundLayer());
     
@@ -71,8 +77,6 @@ export default class Level_1 extends Phaser.Scene{
    
   }
 
-
- 
   fruitItem(){
     this.anims.create({
       key: "play_fruit",
@@ -80,6 +84,8 @@ export default class Level_1 extends Phaser.Scene{
       frameRate: 24,
       repeat: -1,
     });
+
+    // create fruit animation
     this.apple  = this.add.group();
       this.apple.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 2});
       Phaser.Actions.GridAlign(this.apple.getChildren(), { width:2, height: 3, cellWidth: 38, x: 200, y:120 });
@@ -98,13 +104,21 @@ export default class Level_1 extends Phaser.Scene{
      this.anims.staggerPlay('play_fruit', this.apple_3.getChildren(), 90);
      this.physics.world.enable(this.apple_3);
     this.isGameStart = true;
+
     this.apple_4 = this.add.group();
      this.apple_4.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 1 });
      Phaser.Actions.GridAlign(this.apple_4.getChildren(), { width:0, height: 2, cellWidth: 38, x: 370, y:350 });
      this.anims.staggerPlay('play_fruit', this.apple_4.getChildren(), 90);
      this.physics.world.enable(this.apple_4);
+
+    // checkpoint create
+    this.checkpoint = this.add.group();
+     this.checkpoint.createMultiple({ key: 'checkpoint', frame: 0, repeat: 0 });
+     Phaser.Actions.GridAlign(this.checkpoint.getChildren(), { width:0, height:1, cellWidth: 38,  x: 830, y:265 });
+     this.anims.staggerPlay('checkpoint', this.checkpoint.getChildren(), 90);
+     this.physics.world.enable(this.checkpoint);
     this.isGameStart = true;
-  
+   
     this.coin = this.add.image(860,400,'coin').setScale(1.8);
     this.coin.visible = false;
     
@@ -116,8 +130,16 @@ export default class Level_1 extends Phaser.Scene{
     // handle coin collection
        
        this.physics.world.enable(this.coin);
-       this.physics.add.overlap(this.player,   this.coin , this.levelComplete,null,this);
-    
+       this.physics.add.overlap(this.player,   this.coin , ()=>{
+        this.coin_pick = 0;
+        this.coin_pick += 1;
+        this.coin.destroy();
+        console.log('coin=>',this.coin_pick);
+       },null,this);
+       
+    // handle level 
+    this.physics.add.overlap(this.player,   this.checkpoint , this.levelComplete,null,this);
+ 
     }
     collect(player,fruit_apple){
       //  Hide the sprite
@@ -147,18 +169,23 @@ export default class Level_1 extends Phaser.Scene{
       //  Hide the sprite
    this.apple_4.killAndHide(fruit_apple);
  
- //  And disable the body
- fruit_apple.body.enable = false;
- this.updateScore(10);
+   //  And disable the body
+    fruit_apple.body.enable = false;
+    this.updateScore(10);
   }
-
+   
   levelComplete() {
-    console.log(this.score);
+    console.log(this.coin_pick);
+    if(this.coin_pick == 1){
+        
+    }
     
 
     
    
   }
+
+  
   update(){
     if(this.isGameStart){
       if (this.cursors.left.isDown) {// press keboard right arrow button player move left
@@ -206,10 +233,10 @@ export default class Level_1 extends Phaser.Scene{
           })
           .setOrigin(0.5),
         props: {
-          scale: 1.2,
+          scale: 1.3,
           alpha: 0,
         },
-        duration: 1000,
+        duration: 2000,
       });
       this.coin.visible = true;
      
