@@ -61,7 +61,7 @@ export default class Level_1 extends Phaser.Scene{
     this.player = new Player(this, 80, 250, "run"); //add player in game world
     this.hadleCollision();
     this.fruitItem();
-    this.scoreText = this.add.text(730, 20, "score: 0", {
+    this.scoreText = this.add.text(730, 20, "Score:0", {
     
       fontSize: "22px",
       fill: "#000",
@@ -136,7 +136,7 @@ export default class Level_1 extends Phaser.Scene{
         this.coin.destroy();
         console.log('coin=>',this.coin_pick);
        },null,this);
-       
+
     // handle level 
     this.physics.add.overlap(this.player,   this.checkpoint , this.levelComplete,null,this);
  
@@ -175,9 +175,9 @@ export default class Level_1 extends Phaser.Scene{
   }
    
   levelComplete() {
-    console.log(this.coin_pick);
+    console.log(this.score);
     if(this.coin_pick == 1){
-        
+      this.scene.start("level2");
     }
     
 
@@ -220,12 +220,12 @@ export default class Level_1 extends Phaser.Scene{
   }
   updateScore(_value) {
     this.score += _value; // increase game score set value _value =10
-    this.scoreText.setText("Score: " + this.score); // set the text for score show
+    this.scoreText.setText("Score:"+ this.score); // set the text for score show
     if(this.score ==60 ){
       this.tweens.add({
         // add tween Text.
         targets: this.add
-          .text(500,200,'get the coin Unlock next level', {
+          .text(500,200,'Get the coin unlock next level', {
             fontSize: "33px",
             color: "#ff6700",
             stroke: "#effa52",

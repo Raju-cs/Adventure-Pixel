@@ -1,5 +1,6 @@
 import Loader from "./load.js";
 import Level_1 from "./Level1.js";
+import Level_2 from "./Level2.js";
 const config = {
     width: 915,
     height: 510,
@@ -21,7 +22,7 @@ const config = {
       // mode: Phaser.Scale.FIT,
       parent: "root", 
     },
-    scene: [Loader,Level_1],
+    scene: [Loader,Level_1,Level_2],
   };
   
   const game = new Phaser.Game(config);
