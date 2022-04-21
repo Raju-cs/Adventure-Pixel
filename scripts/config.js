@@ -3,7 +3,7 @@ import Level_1 from "./Level1.js";
 import Level_2 from "./Level2.js";
 const config = {
     width: 915,
-    height: 510,
+    height: 505,
     type: Phaser.AUTO,
     pixelArt: true,
     roundPixels: true,
@@ -14,7 +14,7 @@ const config = {
       arcade: {
         fps: 60,
         gravity: { y: 0 },
-        debug: false
+        debug: true
       },
     },
     scale: {

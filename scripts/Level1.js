@@ -29,7 +29,7 @@ export default class Level_1 extends Phaser.Scene{
   create(){
       console.log("Level 1");
    this.map = new Map(this, "map1"); // map1 create
-    this.backGround =   this.add.tileSprite(0, 0, 1000, 500, 'Bg_brown').setOrigin(0, 0);
+    this.backGround =   this.add.tileSprite(0, 0, 1000, 508, 'Bg_brown').setOrigin(0, 0);
     this.cursors = this.input.keyboard.createCursorKeys(); // enable keyboard player movement
 
     this.anims.create({
@@ -56,8 +56,7 @@ export default class Level_1 extends Phaser.Scene{
       frameRate: 8,
       repeat: -1,
     });
-
-      
+    
     this.player = new Player(this, 80, 250, "run"); //add player in game world
     this.hadleCollision();
     this.fruitItem();
@@ -110,6 +109,15 @@ export default class Level_1 extends Phaser.Scene{
      Phaser.Actions.GridAlign(this.apple_4.getChildren(), { width:0, height: 2, cellWidth: 38, x: 370, y:350 });
      this.anims.staggerPlay('play_fruit', this.apple_4.getChildren(), 90);
      this.physics.world.enable(this.apple_4);
+
+     // COLLECT FRUIT
+     this.anims.create({
+      key: "collect",
+      frames: this.anims.generateFrameNumbers('collect', { frames: [0, 1, 2, 3, 4, 5] }),
+      frameRate: 8,
+      repeat: -1,
+    });
+    
 
     // checkpoint create
     this.checkpoint = this.add.group();
@@ -175,6 +183,7 @@ export default class Level_1 extends Phaser.Scene{
   }
    
   levelComplete() {
+   
     console.log(this.score);
     if(this.coin_pick == 1){
       this.scene.start("level2");

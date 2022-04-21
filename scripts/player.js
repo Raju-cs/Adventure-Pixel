@@ -17,7 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.setBounce(0.2); // when player lands after jumping it will bounce ever so slightly.
       this.setCollideWorldBounds(true); //stop the player from being able to run off the edges of the screen or jump through the top.
       this.body.setGravityY(320); // the player falls down without stopping when it jump
-      this.body.setSize(20,28);
+      this.body.setSize(21,30);
       this.sceneObj.add.existing(this); //it has a preUpdate method, it will be added to the Update List.
     }
   

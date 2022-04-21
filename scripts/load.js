@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene{
         this.load.on(
           "complete",
           () => {
-            this.scene.start("level1");
+            this.scene.start("level2");
           },
           this
         );
@@ -67,6 +67,7 @@ export default class Loader extends Phaser.Scene{
 
     preload(){
        this.load.image("Bg_brown","assets/Background/Brown.png");
+       this.load.image("Bg_green","assets/Background/Yellow.png");
        this.load.image("Platforms","assets/Background/Grey On (32x8).png");
        this.load.spritesheet('Idle', 'assets/Background/Idle (32x32).png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('run', 'assets/Background/Run (32x32).png', { frameWidth: 32, frameHeight: 32 });
@@ -74,9 +75,15 @@ export default class Loader extends Phaser.Scene{
        this.load.spritesheet('fruit_apple', 'assets/fruit/Apple.png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('checkpoint', 'assets/Checkpoint (Flag Idle)(64x64).png', { frameWidth: 64, frameHeight: 64 });
        this.load.image("coin","assets/coin.png");
+       this.load.image("sawOff","assets/saw/Off.png");
+       this.load.spritesheet("collect","assets/fruit/Collected.png", { frameWidth: 32, frameHeight: 32 });
+       this.load.spritesheet("sawOn","assets/saw/On (38x38).png", { frameWidth: 38, frameHeight: 38 });
+
+      
     
        // load map
        this.load.tilemapTiledJSON("map1", "assets/Tilemap/map1.json");
+       this.load.tilemapTiledJSON("map2", "assets/Tilemap/map2.json");
        this.load.image("map-tiles", "assets/Tilemap/Terrain.png");
     }
 
