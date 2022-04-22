@@ -46,7 +46,10 @@ export default class Level_2 extends Phaser.Scene{
           this.player = new Player(this, 80, 250, "run"); //add player in game world
           this.isGameStart = true;
           this.hadleCollision();
-          this.sawAnims();
+          this.sawAnims(160,355,232,412,215,412);
+          this.sawAnims2(477,375,273,375,370,273);
+          this.sawAnims2(820,390,322,750,750,322);
+          this.sawAnims(568,143,672,215,650,215);
 
 
 
@@ -54,39 +57,6 @@ export default class Level_2 extends Phaser.Scene{
       hadleCollision(){
         this.physics.add.collider(this.player,  this.map.getGroundLayer());
     
-      }
-      sawAnims(){
-        this.anims.create({
-          key: "sawOn_play",
-          frames: this.anims.generateFrameNumbers('sawOn', { frames: [0, 1, 2, 3, 4, 5, 6, 7] }),
-          frameRate: 8,
-          repeat: -1,
-        });
-
-     this.sawOn = this.add.sprite(215,407,"sawOff");
-     this.sawOn.anims.play("sawOn_play", true);
-     this.physics.world.enable(this.sawOn);
-     this.tweens.timeline({
-      targets: this.sawOn,
-      ease: 'Power2',
-      duration: 1000,
-      
-      tweens: [
-      {
-          x: 160
-      },
-      {
-          y: 355
-      },
-      {
-          x: 232
-      },
-      {
-          y: 412
-      }],
-     
-     loop:-1
-  });
       }
 
       update(){
@@ -119,5 +89,75 @@ export default class Level_2 extends Phaser.Scene{
           }
         this.backGround.tilePositionY -= 0.5;
         
+    }
+
+    sawAnims(width_first,height_first,width_second,height_second,sawWidth,sawHeight){
+      this.anims.create({
+        key: "sawOn_play",
+        frames: this.anims.generateFrameNumbers('sawOn', { frames: [0, 1, 2, 3, 4, 5, 6, 7] }),
+        frameRate: 8,
+        repeat: -1,
+      });
+
+   this.sawOn = this.add.sprite(sawWidth,sawHeight,"sawOff");
+   this.sawOn.anims.play("sawOn_play", true);
+   this.physics.world.enable(this.sawOn);
+   this.tweens.timeline({
+    targets: this.sawOn,
+    ease: 'Power2',
+    duration: 1000,
+    
+    tweens: [
+    {
+        x: width_first
+    },
+    {
+        y: height_first
+    },
+    {
+        x: width_second
+    },
+    {
+        y: height_second
+    }],
+   
+   loop:-1
+});
+    }
+
+
+    sawAnims2(width_first,height_first,height_second,width_second, sawWidth,sawHeight){
+      this.anims.create({
+        key: "sawOn_play",
+        frames: this.anims.generateFrameNumbers('sawOn', { frames: [0, 1, 2, 3, 4, 5, 6, 7] }),
+        frameRate: 8,
+        repeat: -1,
+      });
+
+   this.sawOn = this.add.sprite(sawWidth,sawHeight,"sawOff");
+   this.sawOn.anims.play("sawOn_play", true);
+   this.physics.world.enable(this.sawOn);
+   this.tweens.timeline({
+    targets: this.sawOn,
+    ease: 'Power2',
+    duration: 1000,
+    
+    tweens: [
+    {
+        x: width_first
+    },
+    {
+        y: height_first
+    },
+    {
+      y: height_second
+  },
+  {
+    x: width_second
+},
+   ],
+ loop:-1  
+  
+});
     }
 }
