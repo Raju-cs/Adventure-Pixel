@@ -50,10 +50,7 @@ export default class Level_2 extends Phaser.Scene{
           this.sawAnims2(477,375,273,375,370,273);
           this.sawAnims2(820,390,322,750,750,322);
           this.sawAnims(568,143,672,215,650,215);
-
-
-
-      }
+         }
       hadleCollision(){
         this.physics.add.collider(this.player,  this.map.getGroundLayer());
     
