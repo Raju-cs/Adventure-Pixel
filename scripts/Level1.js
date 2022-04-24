@@ -188,7 +188,7 @@ export default class Level_1 extends Phaser.Scene{
     if(this.coin_pick == 1){
       this.scene.start("level2");
     }
-    
+    localStorage.setItem("Score", this.score);
 
     
    
