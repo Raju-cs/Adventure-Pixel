@@ -6,6 +6,7 @@ export default class Level_2 extends Phaser.Scene{
     cursors;
     isGameStart = false;
     sawOn;
+    chain;
 
       constructor(){
         super("level2");
@@ -46,10 +47,12 @@ export default class Level_2 extends Phaser.Scene{
           this.player = new Player(this, 80, 250, "run"); //add player in game world
           this.isGameStart = true;
           this.hadleCollision();
+          this.chainCreate();
           this.sawAnims(160,355,232,412,215,412);
           this.sawAnims2(477,375,273,375,370,273);
           this.sawAnims2(820,390,322,750,750,322);
           this.sawAnims(568,143,672,215,650,215);
+          this.chainSawAnims(835, 155);
          }
       hadleCollision(){
         this.physics.add.collider(this.player,  this.map.getGroundLayer());
@@ -88,6 +91,32 @@ export default class Level_2 extends Phaser.Scene{
         
     }
 
+    chainCreate(){
+      this.chain= this.add.group();
+      this.chain.createMultiple({ key: 'chain', frame: 0, repeat: 10});
+      Phaser.Actions.GridAlign(this.chain.getChildren(), { width:1, height:11, cellWidth: 10, x: 835, y:155 });
+   
+     
+    }
+
+    chainSawAnims(sawWidth,sawHeight){
+      this.sawOn = this.add.sprite(sawWidth,sawHeight,"sawOff");
+      this.sawOn.anims.play("sawOn_play", true);
+      this.physics.world.enable(this.sawOn);
+      this.tweens.add({
+        targets: this.sawOn,
+        y: 230,
+        duration: 3000,
+        ease: "Power1",
+        yoyo: true,
+        repeat: -1,
+      });
+      this.physics.add.overlap(this.player,   this.sawOn ,()=>{
+        this.gameOver();
+      });
+    }
+    
+    
     sawAnims(width_first,height_first,width_second,height_second,sawWidth,sawHeight){
       this.anims.create({
         key: "sawOn_play",
@@ -120,6 +149,10 @@ export default class Level_2 extends Phaser.Scene{
    
    loop:-1
 });
+
+this.physics.add.overlap(this.player,   this.sawOn ,()=>{
+  this.gameOver();
+});
     }
 
 
@@ -151,10 +184,16 @@ export default class Level_2 extends Phaser.Scene{
   },
   {
     x: width_second
-},
-   ],
+},],
  loop:-1  
   
 });
+this.physics.add.overlap(this.player,   this.sawOn ,()=>{
+  this.gameOver();
+});
+    }
+
+    gameOver(){
+      this.player.reset();
     }
 }
