@@ -129,22 +129,13 @@ export default class Level_1 extends Phaser.Scene{
    
     this.coin = this.add.image(860,400,'coin').setScale(1.8);
     this.coin.visible = false;
+    this.physics.world.enable(this.coin);
     
     this.physics.add.overlap(this.player,   this.apple , this.collect,null,this);
     this.physics.add.overlap(this.player,   this.apple_2 , this.collect_two,null,this);
     this.physics.add.overlap(this.player,   this.apple_3 , this.collect_three,null,this);
     this.physics.add.overlap(this.player,   this.apple_4 , this.collect_four,null,this);
-    
-    // handle coin collection
-       
-       this.physics.world.enable(this.coin);
-       this.physics.add.overlap(this.player,   this.coin , ()=>{
-        this.coin_pick = 0;
-        this.coin_pick += 1;
-        this.coin.destroy();
-        console.log('coin=>',this.coin_pick);
-       },null,this);
-
+ 
     // handle level 
     this.physics.add.overlap(this.player,   this.checkpoint , this.levelComplete,null,this);
  }
@@ -201,9 +192,7 @@ export default class Level_1 extends Phaser.Scene{
       this.scene.start("level2");
     }
     localStorage.setItem("Score", this.score);
-
-    
-   
+ 
   }
 
   
@@ -243,6 +232,14 @@ export default class Level_1 extends Phaser.Scene{
     this.score += _value; // increase game score set value _value =10
     this.scoreText.setText("Score:"+ this.score); // set the text for score show
     if(this.score ==60 ){
+      // handle coin collection
+      this.physics.add.overlap(this.player,   this.coin , ()=>{
+        this.coin_pick = 0;
+        this.coin_pick += 1;
+        this.coin.destroy();
+        console.log('coin=>',this.coin_pick);
+       },null,this);
+
       this.tweens.add({
         // add tween Text.
         targets: this.add
