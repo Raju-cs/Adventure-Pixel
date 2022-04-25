@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene{
         this.load.on(
           "complete",
           () => {
-            this.scene.start("level1");
+            this.scene.start("level3");
           },
           this
         );
@@ -67,7 +67,8 @@ export default class Loader extends Phaser.Scene{
 
     preload(){
        this.load.image("Bg_brown","assets/Background/Brown.png");
-       this.load.image("Bg_green","assets/Background/Yellow.png");
+       this.load.image("Bg_yellow","assets/Background/Yellow.png");
+       this.load.image("Bg_Pink","assets/Background/Pink.png");
        this.load.image("Platforms","assets/Background/Grey On (32x8).png");
        this.load.image("coin","assets/coin.png");
        this.load.image("sawOff","assets/saw/Off.png");

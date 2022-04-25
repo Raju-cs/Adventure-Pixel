@@ -26,7 +26,7 @@ export default class Level_2 extends Phaser.Scene{
       create(){
           console.log('level2');
           
-          this.backGround =   this.add.tileSprite(0, 0, 900, 508, 'Bg_green').setOrigin(0, 0);
+          this.backGround =   this.add.tileSprite(0, 0, 900, 508, 'Bg_yellow').setOrigin(0, 0);
           this.map = new Map(this, "map2"); // map1 create
           this.cursors = this.input.keyboard.createCursorKeys(); // enable keyboard player movement
           this.anims.create({
@@ -100,8 +100,8 @@ export default class Level_2 extends Phaser.Scene{
          this.physics.world.enable(this.apple_2);
         
          this.apple_3 = this.add.group();
-         this.apple_3.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 7 });
-         Phaser.Actions.GridAlign(this.apple_3.getChildren(), { width:4, height: 4, cellWidth: 20, x: 800, y:390 });
+         this.apple_3.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 5 });
+         Phaser.Actions.GridAlign(this.apple_3.getChildren(), { width:3, height: 3, cellWidth: 20, x: 820, y:390 });
          this.anims.staggerPlay('play_fruit', this.apple_3.getChildren(), 90);
          this.physics.world.enable(this.apple_3);
         this.isGameStart = true;
@@ -150,22 +150,25 @@ export default class Level_2 extends Phaser.Scene{
           fruit_apple.body.enable = false;
           this.updateScore(10);
           console.log('score=>',this.score);
+         
            }
            collect_two(player,fruit_apple){
             //  Hide the sprite
       this.apple_2.killAndHide(fruit_apple);
-      console.log('score=>',this.score);
+      
        //  And disable the body
        fruit_apple.body.enable = false;
        this.updateScore(10);
+       console.log('score=>',this.score);
         }
         collect_three(player,fruit_apple){
          //  Hide the sprite
       this.apple_3.killAndHide(fruit_apple);
-      console.log('score=>',this.score);
+      
     //  And disable the body
     fruit_apple.body.enable = false;
     this.updateScore(10);
+    console.log('score=>',this.score);
      }
      collect_four(player,fruit_apple){
        //  Hide the sprite
