@@ -342,7 +342,8 @@ this.physics.add.overlap(this.player,   this.sawOn ,()=>{
               stroke: "#effa52",
               strokeThickness: 5,
             })
-            .setOrigin(0.5),
+            .setOrigin(0.5)
+            .setDepth(2),
           props: {
             scale: 1.3,
             alpha: 0,

@@ -14,7 +14,7 @@ const config = {
       arcade: {
         fps: 60,
         gravity: { y: 0 },
-        debug: false
+        debug: true
       },
     },
     scale: {

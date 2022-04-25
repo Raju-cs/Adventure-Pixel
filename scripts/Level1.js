@@ -60,20 +60,20 @@ export default class Level_1 extends Phaser.Scene{
     this.player = new Player(this, 80, 250, "run"); //add player in game world
     this.hadleCollision();
     this.fruitItem();
+    this.Spikes(840,432);
     this.scoreText = this.add.text(730, 20, "Score:0", {
     
       fontSize: "22px",
       fill: "#000",
     });
+    
      
  
   }
 
   hadleCollision(){
     this.physics.add.collider(this.player,  this.map.getGroundLayer());
-    
-   
-   
+ 
   }
 
   fruitItem(){
@@ -87,7 +87,7 @@ export default class Level_1 extends Phaser.Scene{
     // create fruit animation
     this.apple  = this.add.group();
       this.apple.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 2});
-      Phaser.Actions.GridAlign(this.apple.getChildren(), { width:2, height: 3, cellWidth: 38, x: 200, y:120 });
+      Phaser.Actions.GridAlign(this.apple.getChildren(), { width:2, height: 3, cellWidth: 38, x: 200, y:150 });
       this.anims.staggerPlay('play_fruit', this.apple.getChildren(), 90);
       this.physics.world.enable(  this.apple );
 
@@ -111,12 +111,12 @@ export default class Level_1 extends Phaser.Scene{
      this.physics.world.enable(this.apple_4);
 
      // COLLECT FRUIT
-     this.anims.create({
-      key: "collect",
-      frames: this.anims.generateFrameNumbers('collect', { frames: [0, 1, 2, 3, 4, 5] }),
-      frameRate: 8,
-      repeat: -1,
-    });
+    //  this.anims.create({
+    //   key: "collect",
+    //   frames: this.anims.generateFrameNumbers('collect', { frames: [0, 1, 2, 3, 4, 5] }),
+    //   frameRate: 8,
+    //   repeat: -1,
+    // });
     
 
     // checkpoint create
@@ -147,8 +147,20 @@ export default class Level_1 extends Phaser.Scene{
 
     // handle level 
     this.physics.add.overlap(this.player,   this.checkpoint , this.levelComplete,null,this);
- 
-    }
+ }
+
+ Spikes(width,height){
+   let spikes = this.add.image(width, height, 'Spikes').setDepth(2);
+   this.physics.world.enable(spikes);
+   this.physics.add.overlap(this.player,  spikes ,()=>{
+    this.gameOver();
+   } );
+
+ }
+ gameOver(){
+  this.player.reset();
+}
+
     collect(player,fruit_apple){
       //  Hide the sprite
       this.apple .killAndHide(fruit_apple);
