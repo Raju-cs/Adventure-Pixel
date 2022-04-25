@@ -43,9 +43,12 @@ export default class Level_3 extends Phaser.Scene{
             repeat: -1,
           });
 
-          this.player = new Player(this, 80, 250, "run"); //add player in game world
+          this.player = new Player(this, 50, 50, "run"); //add player in game world
           this.isGameStart = true;
           this.hadleCollision();
+          this.sawAnims(747,200,142,820,820,142);
+          this.sawAnims2();
+
           
     }
 
@@ -84,4 +87,68 @@ export default class Level_3 extends Phaser.Scene{
           }
         this.backGround.tilePositionY -= 0.5;
     }
+    sawAnims(width_first,height_first,height_second,width_second, sawWidth,sawHeight){
+        this.anims.create({
+          key: "sawOn_play",
+          frames: this.anims.generateFrameNumbers('sawOn', { frames: [0, 1, 2, 3, 4, 5, 6, 7] }),
+          frameRate: 8,
+          repeat: -1,
+        });
+  
+     this.sawOn = this.add.sprite(sawWidth,sawHeight,"sawOff");
+     this.sawOn.anims.play("sawOn_play", true);
+     this.physics.world.enable(this.sawOn);
+     this.tweens.timeline({
+      targets: this.sawOn,
+      ease: 'Power2',
+      duration: 1000,
+      
+      tweens: [
+      {
+          x: width_first
+      },
+      {
+          y: height_first
+      },
+      {
+        y: height_second
+    },
+    {
+      x: width_second
+  },],
+   loop:-1  
+    
+  });
+  this.physics.add.overlap(this.player,   this.sawOn ,()=>{
+    this.gameOver();
+  });
+      }
+      gameOver(){
+        this.player.reset();
+      }
+
+      sawAnims2(){
+        this.anims.create({
+            key: "sawOn_play",
+            frames: this.anims.generateFrameNumbers('sawOn', { frames: [0, 1, 2, 3, 4, 5, 6, 7] }),
+            frameRate: 8,
+            repeat: -1,
+          });
+    
+       this.sawOn = this.add.sprite(400,257,"sawOff");
+       this.sawOn.anims.play("sawOn_play", true);
+       this.physics.world.enable(this.sawOn);
+        this.tweens.add({
+            targets: this.sawOn,
+            x: 630,
+            duration: 2500,
+            ease: "Linear",
+            yoyo: true,
+            repeat: -1,
+          });
+          this.physics.add.overlap(this.player,   this.sawOn ,()=>{
+            this.gameOver();
+          });
+      }
+  
 } 
