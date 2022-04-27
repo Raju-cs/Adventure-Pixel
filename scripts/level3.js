@@ -50,7 +50,12 @@ export default class Level_3 extends Phaser.Scene{
           this.hadleCollision();
           this.sawAnims(747,200,142,820,820,142);
           this.sawAnims2();
-          this.createAnimSpikedBall();
+          this.createAnimSpikedBall(0,7,17,37,320,115);
+          this.createAnimSpikedBall(0,7,17,37,300,312);
+          this.createAnimSpikedBall(0,7,17,37,252,440);
+          this.createAnimSpikedBall(0,7,17,37,528,440);
+          this.createAnimSpikedBall2(0,7,17,27,37,47,67,710,410);
+          // this.createAnimSpikedBall2(0,7,17,27,37,47,67,810,50);
         
     }
 
@@ -89,7 +94,7 @@ export default class Level_3 extends Phaser.Scene{
             }
           }
         this.backGround.tilePositionY -= 0.5;
-        // this.container.rotation -= 0.06;
+        
     }
     sawAnims(width_first,height_first,height_second,width_second, sawWidth,sawHeight){
         this.anims.create({
@@ -155,13 +160,13 @@ export default class Level_3 extends Phaser.Scene{
           });
       }
 
-      createAnimSpikedBall(){
+      createAnimSpikedBall(chain_height1,chain_height2,chain_height3,spikeBall_width,container_width,container_height){
              
-           let chain_one =  this.add.image(0,0,'chain').setScale(1.3);  
-           let chain_two =  this.add.image(0,10,'chain').setScale(1.3);
-           let chain_three =  this.add.image(0,20,'chain').setScale(1.3);
-           let spikeBall = this.add.image(0,40,'Spikeball');
-           let container = this.add.container(320, 115);
+           let chain_one =  this.add.image(0,chain_height1,'chain').setScale(1.3);  
+           let chain_two =  this.add.image(0,chain_height2,'chain').setScale(1.3);
+           let chain_three =  this.add.image(0,chain_height3,'chain').setScale(1.3);
+           let spikeBall = this.add.image(0,spikeBall_width,'Spikeball');
+           let container = this.add.container(container_width, container_height);
             container.add([spikeBall,chain_one,chain_two,chain_three]);
          
             var tween = this.tweens.addCounter({
@@ -178,8 +183,43 @@ export default class Level_3 extends Phaser.Scene{
                   container.setAngle(tween.getValue());
               }
           });
-
-
+          this.physics.world.enable(spikeBall);
+          this.physics.add.overlap(this.player,   spikeBall ,()=>{
+            this.gameOver();
+          });
       }
+
+      createAnimSpikedBall2(chain_height1,chain_height2,chain_height3,chain_height4,chain_height5,chain_height6,spikeBall_width,container_width,container_height){
+             
+        let chain_one =  this.add.image(0,chain_height1,'chain').setScale(1.3);  
+        let chain_two =  this.add.image(0,chain_height2,'chain').setScale(1.3);
+        let chain_three =  this.add.image(0,chain_height3,'chain').setScale(1.3);
+        let chain_four =  this.add.image(0,chain_height4,'chain').setScale(1.3);
+        let chain_five =  this.add.image(0,chain_height5,'chain').setScale(1.3);
+        let chain_six =  this.add.image(0,chain_height6,'chain').setScale(1.3);
+        let spikeBall = this.add.image(0,spikeBall_width,'Spikeball');
+        let container = this.add.container(container_width, container_height);
+         container.add([spikeBall,chain_one,chain_two,chain_three,chain_four,chain_five,chain_six]);
+      
+         var tween = this.tweens.addCounter({
+           from: -90,
+           to: 90,
+           duration: 2000,
+           repeat: -1,
+           ease: "Linear",
+           yoyo:true,
+           
+           onUpdate: function (tween)
+           {
+               //  tween.getValue = range between 0 and 360
+   
+               container.setAngle(tween.getValue());
+           }
+       });
+       this.physics.world.enable(spikeBall);
+       this.physics.add.overlap(this.player,   spikeBall ,()=>{
+         this.gameOver();
+       });
+   }
   
 } 
