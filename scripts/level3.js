@@ -157,20 +157,20 @@ export default class Level_3 extends Phaser.Scene{
 
       createAnimSpikedBall(){
              
-           let chain_one =  this.add.image(0,0,'chain');  
-           let chain_two =  this.add.image(0,10,'chain');
-           let chain_three =  this.add.image(0,20,'chain');
+           let chain_one =  this.add.image(0,0,'chain').setScale(1.3);  
+           let chain_two =  this.add.image(0,10,'chain').setScale(1.3);
+           let chain_three =  this.add.image(0,20,'chain').setScale(1.3);
            let spikeBall = this.add.image(0,40,'Spikeball');
            let container = this.add.container(320, 115);
             container.add([spikeBall,chain_one,chain_two,chain_three]);
          
             var tween = this.tweens.addCounter({
-              from: -90,
-              to: 90,
-              duration: 2000,
+              from: 0,
+              to: 360,
+              duration: 3500,
               repeat: -1,
               ease: "Linear",
-              yoyo:true,
+              
               onUpdate: function (tween)
               {
                   //  tween.getValue = range between 0 and 360
