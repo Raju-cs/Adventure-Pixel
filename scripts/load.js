@@ -74,6 +74,7 @@ export default class Loader extends Phaser.Scene{
        this.load.image("sawOff","assets/saw/Off.png");
        this.load.image("chain","assets/saw/Chain.png");
        this.load.image("Spikes","assets/Spikes/Idle.png");
+       this.load.image("Spikeball","assets/Spiked Ball/Spiked Ball.png");
        this.load.spritesheet('Idle', 'assets/Background/Idle (32x32).png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('run', 'assets/Background/Run (32x32).png', { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('jump', 'assets/Background/Jump (32x32).png', { frameWidth: 32, frameHeight: 32 });

@@ -7,6 +7,8 @@ export default class Level_3 extends Phaser.Scene{
     isGameStart = false;
     player;
     cursors;
+    chain;
+    container;
     constructor(){
         super('level3');
     }
@@ -48,14 +50,15 @@ export default class Level_3 extends Phaser.Scene{
           this.hadleCollision();
           this.sawAnims(747,200,142,820,820,142);
           this.sawAnims2();
-
-          
+          this.createAnimSpikedBall();
+        
     }
 
     hadleCollision(){
         this.physics.add.collider(this.player,  this.map.getGroundLayer());
         
       }
+
 
     update(){
         if(this.isGameStart){
@@ -86,6 +89,7 @@ export default class Level_3 extends Phaser.Scene{
             }
           }
         this.backGround.tilePositionY -= 0.5;
+        // this.container.rotation -= 0.06;
     }
     sawAnims(width_first,height_first,height_second,width_second, sawWidth,sawHeight){
         this.anims.create({
@@ -122,7 +126,7 @@ export default class Level_3 extends Phaser.Scene{
   this.physics.add.overlap(this.player,   this.sawOn ,()=>{
     this.gameOver();
   });
-      }
+  }
       gameOver(){
         this.player.reset();
       }
@@ -142,13 +146,40 @@ export default class Level_3 extends Phaser.Scene{
             targets: this.sawOn,
             x: 630,
             duration: 2500,
-            ease: "Linear",
+            ease: "Power1",
             yoyo: true,
             repeat: -1,
           });
           this.physics.add.overlap(this.player,   this.sawOn ,()=>{
             this.gameOver();
           });
+      }
+
+      createAnimSpikedBall(){
+             
+           let chain_one =  this.add.image(0,0,'chain');  
+           let chain_two =  this.add.image(0,10,'chain');
+           let chain_three =  this.add.image(0,20,'chain');
+           let spikeBall = this.add.image(0,40,'Spikeball');
+           let container = this.add.container(320, 115);
+            container.add([spikeBall,chain_one,chain_two,chain_three]);
+         
+            var tween = this.tweens.addCounter({
+              from: -90,
+              to: 90,
+              duration: 2000,
+              repeat: -1,
+              ease: "Linear",
+              yoyo:true,
+              onUpdate: function (tween)
+              {
+                  //  tween.getValue = range between 0 and 360
+      
+                  container.setAngle(tween.getValue());
+              }
+          });
+
+
       }
   
 } 

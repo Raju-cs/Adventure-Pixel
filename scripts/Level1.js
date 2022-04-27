@@ -233,7 +233,7 @@ export default class Level_1 extends Phaser.Scene{
     this.scoreText.setText("Score:"+ this.score); // set the text for score show
     if(this.score ==60 ){
       // handle coin collection
-      this.physics.add.overlap(this.player,   this.coin , ()=>{
+      this.physics.add.overlap(this.player, this.coin , ()=>{
         this.coin_pick = 0;
         this.coin_pick += 1;
         this.coin.destroy();
