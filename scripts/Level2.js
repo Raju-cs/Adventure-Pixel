@@ -183,7 +183,7 @@ export default class Level_2 extends Phaser.Scene{
         levelComplete() {
           console.log(this.score);
           // if(this.coin_pick == 1){
-            this.scene.start("level2");
+            this.scene.start("level3");
           // }
    }
     chainCreate(){

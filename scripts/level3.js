@@ -50,11 +50,11 @@ export default class Level_3 extends Phaser.Scene{
           this.hadleCollision();
           this.sawAnims(747,200,142,820,820,142);
           this.sawAnims2();
-          this.createAnimSpikedBall(0,7,17,37,320,115);
-          this.createAnimSpikedBall(0,7,17,37,300,312);
-          this.createAnimSpikedBall(0,7,17,37,252,440);
-          this.createAnimSpikedBall(0,7,17,37,528,440);
-          this.createAnimSpikedBall2(0,7,17,27,37,47,67,710,410);
+          this.createAnimSpikedBall(0,7,17,37,320,113);
+          this.createAnimSpikedBall(0,7,17,37,300,310);
+          this.createAnimSpikedBall(0,7,17,37,252,438);
+          this.createAnimSpikedBall(0,7,17,37,528,438);
+          this.createAnimSpikedBall2(0,7,17,27,37,47,67,710,408);
           // this.createAnimSpikedBall2(0,7,17,27,37,47,67,810,50);
         
     }
