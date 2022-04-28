@@ -14,7 +14,7 @@ export default class Level_2 extends Phaser.Scene{
     score = 0;
     scoreText;
     coin;
-    checkpoint;
+  
 
       constructor(){
         super("level2");
@@ -58,6 +58,8 @@ export default class Level_2 extends Phaser.Scene{
           
           this.hadleCollision();
           this.fruitItem();
+          this.coinHandle();
+          this.checKpoint();
           this.chainCreate();
           this.sawAnims(160,355,232,412,215,412);
           this.sawAnims2(477,375,273,375,370,273);
@@ -121,26 +123,17 @@ export default class Level_2 extends Phaser.Scene{
         // });
         
     
-        // checkpoint create
-        this.checkpoint = this.add.group();
-         this.checkpoint.createMultiple({ key: 'checkpoint', frame: 0, repeat: 0 });
-         Phaser.Actions.GridAlign(this.checkpoint.getChildren(), { width:0, height:1, cellWidth: 38,  x: 830, y:53 });
-         this.anims.staggerPlay('checkpoint', this.checkpoint.getChildren(), 90);
-         this.physics.world.enable(this.checkpoint);
+      
         this.isGameStart = true;
 
 
        // create coin
-        this.coin = this.add.image(880,200,'coin').setScale(1.8);
-        this.coin.visible = false;
-        this.physics.world.enable(this.coin);
+        
         this.physics.add.overlap(this.player,   this.apple , this.collect,null,this);
         this.physics.add.overlap(this.player,   this.apple_2 , this.collect_two,null,this);
         this.physics.add.overlap(this.player,   this.apple_3 , this.collect_three,null,this);
         this.physics.add.overlap(this.player,   this.apple_4 , this.collect_four,null,this);
-        // handle level 
-        this.physics.add.overlap(this.player,   this.checkpoint , this.levelComplete,null,this);
-     
+       
         }
         collect(player,fruit_apple){
           //  Hide the sprite
@@ -179,12 +172,29 @@ export default class Level_2 extends Phaser.Scene{
      this.updateScore(10);
      console.log('score=>',this.score);
    }
+   checKpoint(){
+  // checkpoint create
+  let checkpoint = this.add.group();
+  checkpoint.createMultiple({ key: 'checkpoint', frame: 0, repeat: 0 });
+  Phaser.Actions.GridAlign(checkpoint.getChildren(), { width:0, height:1, cellWidth: 38,  x: 830, y:53 });
+  this.anims.staggerPlay('checkpoint', checkpoint.getChildren(), 90);
+  this.physics.world.enable(checkpoint);
+   // handle level 
+   this.physics.add.overlap(this.player,  checkpoint , this.levelComplete,null,this);
+     
+   }
+   coinHandle(){
+    this.coin = this.add.image(880,200,'coin').setScale(1.8);
+    this.coin.visible = false;
+    this.physics.world.enable(this.coin);
+   }
 
         levelComplete() {
           console.log(this.score);
-          // if(this.coin_pick == 1){
+          if(this.coin_pick == 1){
             this.scene.start("level3");
-          // }
+          }
+          localStorage.setItem("Score", this.score);
    }
     chainCreate(){
       this.chain= this.add.group();

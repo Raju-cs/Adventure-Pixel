@@ -9,6 +9,9 @@ export default class Level_3 extends Phaser.Scene{
     cursors;
     chain;
     container;
+    coin;
+    score = 0;
+    scoreText;
     constructor(){
         super('level3');
     }
@@ -48,6 +51,9 @@ export default class Level_3 extends Phaser.Scene{
           this.player = new Player(this, 50, 50, "run"); //add player in game world
           this.isGameStart = true;
           this.hadleCollision();
+          this.fruitItem();
+          this.checKpoint();
+          this.coinHandle();
           this.sawAnims(747,200,142,820,820,142);
           this.sawAnims2();
           this.createAnimSpikedBall(0,7,17,37,320,113);
@@ -56,14 +62,134 @@ export default class Level_3 extends Phaser.Scene{
           this.createAnimSpikedBall(0,7,17,37,528,438);
           this.createAnimSpikedBall2(0,7,17,27,37,47,67,710,408);
           // this.createAnimSpikedBall2(0,7,17,27,37,47,67,810,50);
-        
+          this.scoreText = this.add.text(730, 20, "Score:0", {
+    
+            fontSize: "22px",
+            fill: "#000",
+          });
+          let savedScore = JSON.parse(localStorage.getItem("Score"));
+          this.updateScore(savedScore);
     }
 
     hadleCollision(){
         this.physics.add.collider(this.player,  this.map.getGroundLayer());
         
       }
+      fruitItem(){
+        this.anims.create({
+          key: "play_fruit",
+          frames: this.anims.generateFrameNumbers('fruit_apple', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] }),
+          frameRate: 24,
+          repeat: -1,
+        });
+    
+        // create fruit animation
+        this.apple  = this.add.group();
+          this.apple.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 2});
+          Phaser.Actions.GridAlign(this.apple.getChildren(), { width:3, height: 0, cellWidth: 20, x: 360, y:350 });
+          this.anims.staggerPlay('play_fruit', this.apple.getChildren(), 90);
+          this.physics.world.enable(  this.apple );
+    
+       this.apple_2 = this.add.group();
+         this.apple_2.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 5 });
+         Phaser.Actions.GridAlign(this.apple_2.getChildren(), { width:3, height: 3, cellWidth: 20, x: 350, y:450 });
+         this.anims.staggerPlay('play_fruit', this.apple_2.getChildren(), 90);
+         this.physics.world.enable(this.apple_2);
+        
+         this.apple_3 = this.add.group();
+         this.apple_3.createMultiple({ key: 'fruit_apple', frame: 0, repeat: 5 });
+         Phaser.Actions.GridAlign(this.apple_3.getChildren(), { width:3, height: 3, cellWidth: 20, x: 350, y:120 });
+         this.anims.staggerPlay('play_fruit', this.apple_3.getChildren(), 90);
+         this.physics.world.enable(this.apple_3);
+        this.isGameStart = true;
+    
+        this.apple_4 = this.add.group();
+         this.apple_4.createMultiple({ key: 'fruit_apple', frame: 0, repeat:5 });
+         Phaser.Actions.GridAlign(this.apple_4.getChildren(), { width:2, height: 2, cellWidth: 20, x: 600, y:220 });
+         this.anims.staggerPlay('play_fruit', this.apple_4.getChildren(), 90);
+         this.physics.world.enable(this.apple_4);
+    
+         // COLLECT FRUIT
+        //  this.anims.create({
+        //   key: "collect",
+        //   frames: this.anims.generateFrameNumbers('collect', { frames: [0, 1, 2, 3, 4, 5] }),
+        //   frameRate: 8,
+        //   repeat: -1,
+        // });
+        
+    
+      
+        this.isGameStart = true;
 
+
+       // create coin
+        
+        this.physics.add.overlap(this.player,   this.apple , this.collect,null,this);
+        this.physics.add.overlap(this.player,   this.apple_2 , this.collect_two,null,this);
+        this.physics.add.overlap(this.player,   this.apple_3 , this.collect_three,null,this);
+        this.physics.add.overlap(this.player,   this.apple_4 , this.collect_four,null,this);
+       
+        }
+
+        collect(player,fruit_apple){
+          //  Hide the sprite
+          this.apple .killAndHide(fruit_apple);
+          
+          //  And disable the body
+          fruit_apple.body.enable = false;
+          this.updateScore(10);
+          console.log('score=>',this.score);
+         
+           }
+           collect_two(player,fruit_apple){
+            //  Hide the sprite
+      this.apple_2.killAndHide(fruit_apple);
+      
+       //  And disable the body
+       fruit_apple.body.enable = false;
+       this.updateScore(10);
+       console.log('score=>',this.score);
+        }
+        collect_three(player,fruit_apple){
+         //  Hide the sprite
+      this.apple_3.killAndHide(fruit_apple);
+      
+    //  And disable the body
+    fruit_apple.body.enable = false;
+    this.updateScore(10);
+    console.log('score=>',this.score);
+     }
+     collect_four(player,fruit_apple){
+       //  Hide the sprite
+    this.apple_4.killAndHide(fruit_apple);
+  
+    //  And disable the body
+     fruit_apple.body.enable = false;
+     this.updateScore(10);
+     console.log('score=>',this.score);
+   }
+   checKpoint(){
+    // checkpoint create
+    let checkpoint = this.add.group();
+    checkpoint.createMultiple({ key: 'checkpoint', frame: 0, repeat: 0 });
+    Phaser.Actions.GridAlign(checkpoint.getChildren(), { width:0, height:1, cellWidth: 38,  x: 850, y:412  });
+    this.anims.staggerPlay('checkpoint', checkpoint.getChildren(), 90);
+    this.physics.world.enable(checkpoint);
+     // handle level 
+     this.physics.add.overlap(this.player,  checkpoint , this.levelComplete,null,this);
+       
+     }
+     coinHandle(){
+      this.coin = this.add.image(880,100,'coin').setScale(1.8);
+      this.coin.visible = false;
+      this.physics.world.enable(this.coin);
+     }
+     levelComplete() {
+      console.log(this.score);
+      if(this.coin_pick == 1){
+        this.scene.start("level3");
+      }
+       }
 
     update(){
         if(this.isGameStart){
@@ -96,6 +222,41 @@ export default class Level_3 extends Phaser.Scene{
         this.backGround.tilePositionY -= 0.5;
         
     }
+
+    updateScore(_value) {
+      this.score += _value; // increase game score set value _value =10
+      this.scoreText.setText("Score:"+ this.score); // set the text for score show
+      if(this.score ==350 ){
+         // handle coin collection
+         this.physics.add.overlap(this.player, this.coin , ()=>{
+          this.coin_pick = 0;
+          this.coin_pick += 1;
+          this.coin.destroy();
+          console.log('coin=>',this.coin_pick);
+         },null,this);
+
+        this.tweens.add({
+          // add tween Text.
+          targets: this.add
+            .text(500,200,'Get the coin unlock next level', {
+              fontSize: "33px",
+              color: "#ff6700",
+              stroke: "#effa52",
+              strokeThickness: 5,
+            })
+            .setOrigin(0.5)
+            .setDepth(2),
+          props: {
+            scale: 1.3,
+            alpha: 0,
+          },
+          duration: 2000,
+        });
+        this.coin.visible = true;
+       
+      }
+    }
+
     sawAnims(width_first,height_first,height_second,width_second, sawWidth,sawHeight){
         this.anims.create({
           key: "sawOn_play",
@@ -166,7 +327,7 @@ export default class Level_3 extends Phaser.Scene{
            let chain_two =  this.add.image(0,chain_height2,'chain').setScale(1.3);
            let chain_three =  this.add.image(0,chain_height3,'chain').setScale(1.3);
            let spikeBall = this.add.image(0,spikeBall_width,'Spikeball');
-           let container = this.add.container(container_width, container_height);
+           let container = this.add.container(container_width, container_height).setDepth(2);
             container.add([spikeBall,chain_one,chain_two,chain_three]);
          
             var tween = this.tweens.addCounter({
