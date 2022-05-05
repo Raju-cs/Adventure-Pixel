@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene{
         this.load.on(
           "complete",
           () => {
-            this.scene.start("level1");
+            this.scene.start("level4");
           },
           this
         );
@@ -69,9 +69,11 @@ export default class Loader extends Phaser.Scene{
        this.load.image("Bg_brown","assets/Background/Brown.png");
        this.load.image("Bg_yellow","assets/Background/Yellow.png");
        this.load.image("Bg_Pink","assets/Background/Pink.png");
+       this.load.image("Bg_Purple","assets/Background/Purple.png");
        this.load.image("Platforms","assets/Background/Grey On (32x8).png");
        this.load.image("coin","assets/coin.png");
        this.load.image("sawOff","assets/saw/Off.png");
+       this.load.image("rockHead","assets/Rock Head/Idle.png");
        this.load.image("chain","assets/saw/Chain.png");
        this.load.image("Spikes","assets/Spikes/Idle.png");
        this.load.image("Spikeball","assets/Spiked Ball/Spiked Ball.png");
@@ -82,13 +84,18 @@ export default class Loader extends Phaser.Scene{
        this.load.spritesheet('checkpoint', 'assets/Checkpoint (Flag Idle)(64x64).png', { frameWidth: 64, frameHeight: 64 });
        this.load.spritesheet("collect","assets/fruit/Collected.png", { frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet("sawOn","assets/saw/On (38x38).png", { frameWidth: 38, frameHeight: 38 });
-
+       this.load.spritesheet("blink","assets/Rock Head/Blink (42x42).png", { frameWidth: 42, frameHeight: 42 });
+       this.load.spritesheet("bottom_hit","assets/Rock Head/Bottom Hit (42x42).png", { frameWidth: 42, frameHeight: 42 });
+       this.load.spritesheet("left_hit","assets/Rock Head/Left Hit (42x42).png", { frameWidth: 42, frameHeight: 42 });
+       this.load.spritesheet("right_hit","assets/Rock Head/Right Hit (42x42).png", { frameWidth: 42, frameHeight: 42 });
+       this.load.spritesheet("top_hit","assets/Rock Head/Top Hit (42x42).png", { frameWidth: 42, frameHeight: 42 });
       
     
        // load map
        this.load.tilemapTiledJSON("map1", "assets/Tilemap/map1.json");
        this.load.tilemapTiledJSON("map2", "assets/Tilemap/map2.json");
        this.load.tilemapTiledJSON("map3", "assets/Tilemap/map3.json");
+       this.load.tilemapTiledJSON("map4", "assets/Tilemap/map4.json");
        this.load.image("map-tiles", "assets/Tilemap/Terrain.png");
     }
 
