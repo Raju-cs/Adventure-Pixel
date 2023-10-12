@@ -154,7 +154,7 @@ export default class Level_1 extends Phaser.Scene{
 
     collect(player,fruit_apple){
       //  Hide the sprite
-      this.apple .killAndHide(fruit_apple);
+      this.apple.killAndHide(fruit_apple);
       
       //  And disable the body
       fruit_apple.body.enable = false;

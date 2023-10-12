@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene{
         this.load.on(
           "complete",
           () => {
-            this.scene.start("level4");
+            this.scene.start("level1");
           },
           this
         );

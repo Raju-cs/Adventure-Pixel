@@ -21,7 +21,7 @@ const config = {
     },
     scale: {
       autoCenter: Phaser.Scale.CENTER_BOTH,
-      // mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.FIT,
       parent: "root", 
     },
     scene: [Loader,Level_1,Level_2,Level_3,Level_4],
